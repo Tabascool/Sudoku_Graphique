@@ -1,0 +1,74 @@
+﻿<Window x:Class="Sudoku_Application.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding nameApp}" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <Button Content="Charger un fichier" FontSize="16"
+                            Click="Button_loadFile"/>
+                <TextBlock Text="Liste des grilles du fichier :"/>
+            </StackPanel>
+            <ListBox 
+                Name="listbox"
+                Grid.Row="1" Grid.RowSpan="2" 
+                HorizontalContentAlignment="Stretch"
+                ItemsSource="{Binding GridList}"
+                SelectedItem="{Binding gridSelect}"
+                SelectionChanged="ListBox_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Nom}" Margin="10"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Date}" Margin="10"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Symbole}" Margin="10"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding gridSelect.Nom}" Grid.Column="0" Margin="5"/>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding gridSelect.Size}" TextAlignment="Center" Margin="5"/>
+                    <TextBlock Text="x" TextAlignment="Center" Margin="5"/>
+                    <TextBlock Text="{Binding gridSelect.Size}" TextAlignment="Center" Margin="5"/>
+                </StackPanel>
+                <TextBlock Text="{Binding gridSelect.Symbole}" Grid.Column="2" TextAlignment="Right" Margin="5"/>
+            </Grid>
+            <Grid Name="FrontGrid" Grid.Row="1" />
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="button_ResolveGrid" Click="Button_Click" Grid.Column="0" Content="Résoudre la grille" FontSize="18" FontWeight="Bold" IsEnabled="False"/>
+                <Button x:Name="button_checkGrid" Click="Button_Click_1" Grid.Column="1" Content="Vérifier la Grille" FontSize="18" FontWeight="Bold" IsEnabled="False"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
